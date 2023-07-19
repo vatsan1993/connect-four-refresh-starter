@@ -4,6 +4,7 @@
   "description": "",
   "main": "game.js",
   "scripts": {
+    "start": "node game.js",
     "test": "mocha"
   },
   "author": "",
