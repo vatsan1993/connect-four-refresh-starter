@@ -78,11 +78,25 @@ class ConnectFour {
   static isSame(arr) {
     let val = arr[0];
     for (let value of arr) {
-      if (value !== val) {
+      if (value === ' ' || value !== val) {
         return false;
       }
     }
-    return true;
+    return val;
+  }
+
+  static allEmpty(grid) {
+    let empty = true;
+    for (let row of grid) {
+      for (let val of row) {
+        if (val !== ' ') {
+          empty = false;
+          break;
+        }
+      }
+      if (!empty) break;
+    }
+    return empty;
   }
 
   static checkWin(grid) {
@@ -91,7 +105,36 @@ class ConnectFour {
     // Return 'T' if the game is a tie
     // Return false if the game has not ended
 
+    // if grid is empty
+    if (ConnectFour.allEmpty(grid)) {
+      return false;
+    }
+
     // horizontal wins
+    for (let row of grid) {
+      for (let i = 0; i <= row.length - 4; i++) {
+        let fourValues = row.slice(i, i + 4);
+        let result = ConnectFour.isSame(fourValues);
+        if (result) {
+          return result;
+        }
+      }
+    }
+
+    // vertical wins
+    for (let colNum = 0; colNum < grid[0].length; colNum++) {
+      let column = [];
+      for (let rowNum = 0; rowNum < grid.length; rowNum++) {
+        column.push(grid[rowNum][colNum]);
+      }
+      for (let i = 0; i <= column.length - 4; i++) {
+        let fourValues = column.slice(i, i + 4);
+        let result = ConnectFour.isSame(fourValues);
+        if (result) {
+          return result;
+        }
+      }
+    }
 
     return false;
   }
