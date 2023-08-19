@@ -98,7 +98,16 @@ class ConnectFour {
     }
     return empty;
   }
-
+  static getFourAndCheckSame(values) {
+    for (let i = 0; i <= values.length - 4; i++) {
+      let fourValues = values.slice(i, i + 4);
+      let result = ConnectFour.isSame(fourValues);
+      if (result) {
+        return result;
+      }
+    }
+    return '';
+  }
   static checkWin(grid) {
     // Return 'X' if player X wins
     // Return 'O' if player O wins
@@ -112,12 +121,9 @@ class ConnectFour {
 
     // horizontal wins
     for (let row of grid) {
-      for (let i = 0; i <= row.length - 4; i++) {
-        let fourValues = row.slice(i, i + 4);
-        let result = ConnectFour.isSame(fourValues);
-        if (result) {
-          return result;
-        }
+      let result = this.getFourAndCheckSame(row);
+      if (result) {
+        return result;
       }
     }
 
@@ -127,9 +133,51 @@ class ConnectFour {
       for (let rowNum = 0; rowNum < grid.length; rowNum++) {
         column.push(grid[rowNum][colNum]);
       }
-      for (let i = 0; i <= column.length - 4; i++) {
-        let fourValues = column.slice(i, i + 4);
-        let result = ConnectFour.isSame(fourValues);
+      // for (let i = 0; i <= column.length - 4; i++) {
+      //   let fourValues = column.slice(i, i + 4);
+      //   let result = ConnectFour.isSame(fourValues);
+      //   if (result) {
+      //     return result;
+      //   }
+      // }
+      let result = this.getFourAndCheckSame(column);
+      if (result) {
+        return result;
+      }
+    }
+
+    // diag 1 first half
+    // i is column number
+    for (let i = 0; i < grid[0].length; i++) {
+      let diagonal = [];
+      for (let col = i, row = 0; col > -1 && row < grid.length; col--, row++) {
+        // console.log(row, col);
+        diagonal.push(grid[row][col]);
+      }
+      // console.log();
+      if (diagonal.length >= 4) {
+        // console.log(diagonal);
+        let result = this.getFourAndCheckSame(diagonal);
+        if (result) {
+          return result;
+        }
+      }
+    }
+    // diag 1 second half
+    for (let i = 1; i < grid[0].length; i++) {
+      let diagonal = [];
+      for (
+        let col = i, row = grid.length - 1;
+        col < grid[0].length && row > -1;
+        col++, row--
+      ) {
+        // console.log(row, col);
+        diagonal.push(grid[row][col]);
+      }
+      // console.log();
+      // console.log(diagonal);
+      if (diagonal.length >= 4) {
+        let result = this.getFourAndCheckSame(diagonal);
         if (result) {
           return result;
         }
