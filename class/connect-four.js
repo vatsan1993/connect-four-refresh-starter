@@ -225,7 +225,20 @@ class ConnectFour {
         }
       }
     }
-
+    // Tie
+    let isFull = true;
+    for (let row of grid) {
+      // console.log(row);
+      if (row.includes(' ')) {
+        // console.log(isFull);
+        isFull = false;
+        break;
+      }
+    }
+    // console.log(isFull);
+    if (isFull) {
+      return 'T';
+    }
     return false;
   }
 
