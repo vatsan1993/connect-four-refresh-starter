@@ -184,6 +184,48 @@ class ConnectFour {
       }
     }
 
+    // diagonal 2 first half
+    for (let i = 0; i < grid[0].length; i++) {
+      let diagonal = [];
+      for (
+        let col = 0, row = i;
+        col < grid[0].length && row < grid.length;
+        col++, row++
+      ) {
+        // console.log(row, col);
+        diagonal.push(grid[row][col]);
+      }
+      // console.log();
+      // console.log(diagonal);
+      if (diagonal.length >= 4) {
+        let result = this.getFourAndCheckSame(diagonal);
+        if (result) {
+          return result;
+        }
+      }
+    }
+
+    // diag 2 second half
+    for (let i = 1; i < grid[0].length; i++) {
+      let diagonal = [];
+      for (
+        let col = i, row = grid.length - 1;
+        col < grid[0].length && row > -1;
+        col++, row--
+      ) {
+        // console.log(row, col);
+        diagonal.push(grid[row][col]);
+      }
+      // console.log();
+      // console.log(diagonal);
+      if (diagonal.length >= 4) {
+        let result = this.getFourAndCheckSame(diagonal);
+        if (result) {
+          return result;
+        }
+      }
+    }
+
     return false;
   }
 
