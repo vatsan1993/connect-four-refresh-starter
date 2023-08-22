@@ -65,6 +65,17 @@ class ConnectFour {
       Screen.setGrid(row, col, this.playerTurn);
       this.playerTurn = this.playerTurn == 'X' ? 'O' : 'X';
       Screen.render();
+      let result = ConnectFour.checkWin(this.grid);
+      if (result == 'X') {
+        Screen.setQuitMessage('Player wins');
+        Screen.quit();
+      } else if (result == 'O') {
+        Screen.setQuitMessage('Computer Wins');
+        Screen.quit();
+      } else if (result == 'T') {
+        Screen.setQuitMessage('Game tied!');
+        Screen.quit();
+      }
     } else {
       Screen.setMessage('Unable to place the marker!');
     }
